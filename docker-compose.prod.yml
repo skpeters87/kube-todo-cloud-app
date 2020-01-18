@@ -1,0 +1,56 @@
+# Using version 2 as 3 does not support resource constraint options (cpu_*, mem_* limits) for non swarm mode in Compose
+version: "2"
+
+services:
+  todo-postgres:
+    image: skpeters87/todo-postgres:latest
+
+  todo-cache-ingestion:
+    build:
+      dockerfile: ../Dockerfile.nodejs.prod
+    image: skpeters87/todo-cache-ingestion:latest
+
+  todo-cache-service:
+    build:
+      dockerfile: ../Dockerfile.nodejs.prod
+    image: skpeters87/todo-cache-service:latest
+
+  todo-search-ingestion:
+    build:
+      dockerfile: ../Dockerfile.nodejs.prod
+    image: skpeters87/todo-search-ingestion:latest
+    command: sh /home/node/app/start.sh
+
+  todo-search-service:
+    build:
+      dockerfile: ../Dockerfile.nodejs.prod
+    image: skpeters87/todo-search-service:latest
+    command: sh /home/node/app/start.sh
+
+  todo-storage-ingestion:
+    build:
+      dockerfile: ../Dockerfile.nodejs.prod
+    image: skpeters87/todo-storage-ingestion:latest
+    command: sh /home/node/app/start.sh
+
+  todo-storage-service:
+    build:
+      dockerfile: ../Dockerfile.nodejs.prod
+    image: skpeters87/todo-storage-service:latest
+
+  todo-api-gateway:
+    build:
+      dockerfile: ../Dockerfile.nodejs.prod
+    image: skpeters87/todo-api-gateway:latest
+    command: sh /home/node/app/start.sh
+
+  todo-view:
+    build:
+      dockerfile: Dockerfile.prod
+    image: skpeters87/todo-view:latest
+    ports:
+      - 4201:8080
+
+  todo-proxy:
+    image: skpeters87/todo-proxy:latest
+
