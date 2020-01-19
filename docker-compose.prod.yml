@@ -1,5 +1,5 @@
 # Using version 2 as 3 does not support resource constraint options (cpu_*, mem_* limits) for non swarm mode in Compose
-version: "2"
+version: "3"
 
 services:
   todo-postgres:

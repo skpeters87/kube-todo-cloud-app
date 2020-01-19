@@ -1,5 +1,5 @@
 # start builder phase
-FROM node:8.51.1 as builder
+FROM node:8.15.1-stretch as builder
 WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm install
